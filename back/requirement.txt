@@ -1,0 +1,5 @@
+pip install fastapi
+pip install pydantic
+pip install uvicorn
+pip install python-multipart
+uvicorn fast_api:app --reload

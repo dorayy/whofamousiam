@@ -1,0 +1,9 @@
+def calculate(operation, x, y):
+    if operation == "addition":
+        return x + y
+    elif operation == "soustraction":
+        return x - y
+    elif operation == "multiplication":
+        return x * y
+    elif operation == "division":
+        return x / y
