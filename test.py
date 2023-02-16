@@ -22,18 +22,13 @@ def extract_face(filename, required_size=(224, 224)):
 	return face_array
 
 
+pixels = extract_face('./ah.jpg')
+pixels = pixels.astype('float32')
+samples = expand_dims(pixels, axis=0)
+samples = preprocess_input(samples, version=2)
+model = VGGFace(model='resnet50')
+yhat = model.predict(samples)
+results = decode_predictions(yhat)
 
-def predict(file_path):
-    pixels = extract_face(file_path)
-    pixels = pixels.astype('float32')
-    samples = expand_dims(pixels, axis=0)
-    samples = preprocess_input(samples, version=2)
-    model = VGGFace(model='resnet50')
-    yhat = model.predict(samples)
-    results = decode_predictions(yhat)
-
-    json_return = {}
-    for result in results[0]:
-        json_return[result[0]] = result[1]*100
-    
-    return json_return
+for result in results[0]:
+	print('%s: %.3f%%' % (result[0], result[1]*100))

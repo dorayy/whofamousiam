@@ -1,7 +1,10 @@
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
-from tools import calculate as calc
+from tools import predict 
 import os
+import numpy as np
+
+
 
 
 class User_input(BaseModel):
@@ -33,4 +36,6 @@ async def create_upload_file(file: UploadFile = File(...)):
     with open(file_location, "wb") as file_object:
         file_object.write(file.file.read())
 
-    return {"info": f"File {file.filename} has been saved"}
+    json_return = predict(file_location)
+
+    return {"response code": 200, "message": "Image uploaded successfully!" , "result": json_return }
