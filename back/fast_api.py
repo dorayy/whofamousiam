@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
-from calculator import calculate as calc
+from tools import calculate as calc
 import os
 
 
