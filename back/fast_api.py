@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
-from tools import predict 
+from tools import predict , predictModelBenjamin
 import os
 import numpy as np
 
@@ -19,11 +19,6 @@ app = FastAPI()
 @app.get("/api")
 def read_root():
     return {"Hello": "World"}
-
-
-@app.post("/api/calculate")
-def calculate(user_input: User_input):
-    return calc(user_input.operation, user_input.x, user_input.y)
 
 
 @app.post("/api/upload")

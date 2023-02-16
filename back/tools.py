@@ -7,6 +7,7 @@ from mtcnn.mtcnn import MTCNN
 from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
 from keras_vggface.utils import decode_predictions
+from tensorflow import keras
 
 # extract a single face from a given photograph
 def extract_face(filename, required_size=(224, 224)):
@@ -37,3 +38,19 @@ def predict(file_path):
         json_return[result[0]] = result[1]*100
     
     return json_return
+
+
+def predictModelBenjamin(file_path):
+    pixels = extract_face(file_path)
+    pixels = pixels.astype('float32')
+    samples = expand_dims(pixels, axis=0)
+    samples = preprocess_input(samples, version=2)
+    model = keras.models.load_model('../../model/faceScan.h5')
+    yhat = model.predict(samples)
+    results = decode_predictions(yhat)
+    return results
+    # json_return = {}
+    # for result in results[0]:
+    #     json_return[result[0]] = result[1]*100
+    
+    # return json_return
