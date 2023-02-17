@@ -1,10 +1,8 @@
 from fastapi import FastAPI, File, UploadFile
 from pydantic import BaseModel
-from tools import predict , predictModelBenjamin
+from tools import predict, predictModelBenjamin, predictSENET50
 import os
 import numpy as np
-
-
 
 
 class User_input(BaseModel):
@@ -31,6 +29,6 @@ async def create_upload_file(file: UploadFile = File(...)):
     with open(file_location, "wb") as file_object:
         file_object.write(file.file.read())
 
-    json_return = predict(file_location)
+    json_return = predictSENET50(file_location)
 
-    return {"response code": 200, "message": "Image uploaded successfully!" , "result": json_return }
+    return {"response code": 200, "message": "Image uploaded successfully!", "result": json_return}
